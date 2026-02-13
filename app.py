@@ -8,12 +8,15 @@ from ai_layer import AILayer
 import time
 from typing import Dict
 import sys
+import matplotlib.font_manager as fm # Import font_manager
 
 # Set matplotlib font to support Chinese characters conditionally
 if sys.platform == "win32":
     plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']  # For Windows
 else:
     plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']    # For Linux/macOS (Streamlit Cloud)
+    # Force matplotlib to rebuild its font cache for new fonts on Linux
+    fm._rebuild() 
 plt.rcParams['axes.unicode_minus'] = False # To handle negative signs correctly
 
 # --- Streamlit App Configuration ---
