@@ -9,7 +9,7 @@ import time
 from typing import Dict
 
 # Set matplotlib font to support Chinese characters
-plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']
+plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']
 plt.rcParams['axes.unicode_minus'] = False # To handle negative signs correctly
 
 # --- Streamlit App Configuration ---
