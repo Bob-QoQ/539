@@ -7,9 +7,13 @@ from stats_engine import StatsEngine
 from ai_layer import AILayer
 import time
 from typing import Dict
+import sys
 
-# Set matplotlib font to support Chinese characters
-plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']
+# Set matplotlib font to support Chinese characters conditionally
+if sys.platform == "win32":
+    plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']  # For Windows
+else:
+    plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']    # For Linux/macOS (Streamlit Cloud)
 plt.rcParams['axes.unicode_minus'] = False # To handle negative signs correctly
 
 # --- Streamlit App Configuration ---
