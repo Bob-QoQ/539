@@ -13,7 +13,7 @@ import sys
 if sys.platform == "win32":
     plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']  # For Windows
 else:
-    plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']    # For Linux/macOS (Streamlit Cloud)
+    plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR', 'Noto Sans CJK', 'WenQuanYi Zen Hei', 'DejaVu Sans', 'sans-serif'] # For Linux/macOS (Streamlit Cloud)
 plt.rcParams['axes.unicode_minus'] = False # To handle negative signs correctly
 
 # --- Streamlit App Configuration ---
