@@ -115,6 +115,24 @@ else:
     # --- Statistical Analysis ---
     st.subheader("📈 統計分析")
 
+    # Display Latest 5 Draws
+    st.write("#### 最近五期開獎號碼")
+    latest_5_draws_df = stats_engine.get_latest_n_draws(5)
+    if not latest_5_draws_df.empty:
+        # Sort by date in descending order (most recent first)
+        latest_5_draws_df = latest_5_draws_df.sort_values(by='ad_date', ascending=False).reset_index(drop=True)
+        
+        for index, row in latest_5_draws_df.iterrows():
+            draw_num = row['draw']
+            draw_date = row['date']
+            numbers = row['numbers'] # This is already formatted as "01,02,..."
+            
+            st.markdown(f"**期數**: {draw_num} &nbsp; **日期**: {draw_date} &nbsp; **號碼**: <big><span style='font-weight:bold; color:#FF4B4B;'>{numbers}</span></big>", unsafe_allow_html=True)
+        st.markdown("---")
+    else:
+        st.info("沒有最新的開獎號碼數據。")
+
+
     # Frequency Analysis
     st.write("#### 號碼頻率分析")
     freq_all = stats_engine.calculate_frequency()
