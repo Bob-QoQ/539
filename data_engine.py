@@ -98,7 +98,7 @@ class DailyCashCrawler:
     def get_latest_ad_date(self, df: pd.DataFrame) -> datetime:
         """從DataFrame中找到最新日期 (AD calendar)"""
         if not df.empty and 'ad_date' in df.columns:
-            return df['ad_date'].max()
+            return df['ad_date'].max().to_pydatetime() # Convert Timestamp to datetime.datetime
         return None
     
     def crawl_and_save_daily_cash(self, start_year: int = 2014, start_month: int = 1):
@@ -158,7 +158,13 @@ class DailyCashCrawler:
             new_df = pd.DataFrame(all_new_records)
             
             # Combine existing and new data, remove duplicates based on 'draw' and sort by 'ad_date'
-            combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['draw']).sort_values(by='ad_date').reset_index(drop=True)
+            combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['draw'])
+            
+            # CRITICAL FIX: Ensure 'ad_date' column is uniformly datetime before sorting
+            combined_df['ad_date'] = pd.to_datetime(combined_df['ad_date'])
+            
+            # Now sort
+            combined_df = combined_df.sort_values(by='ad_date').reset_index(drop=True)
             
             # Save to CSV
             combined_df.to_csv(filepath, index=False, encoding='utf-8')
